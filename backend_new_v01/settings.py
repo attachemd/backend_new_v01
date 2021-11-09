@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'rest_framework',
 
-    'users',
+    'core',
+    'user',
     # 'django_nose',
 ]
 
@@ -140,7 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'core.User'
 
 # Use nose to run all tests
 # TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
@@ -148,5 +150,5 @@ AUTH_USER_MODEL = 'users.User'
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
 # NOSE_ARGS = [
 #     '--with-coverage',
-#     '--cover-package=users',
+#     '--cover-package=core',
 # ]
