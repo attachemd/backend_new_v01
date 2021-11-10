@@ -1,0 +1,5 @@
+[run]
+source=core/,user/,
+omit =
+        *__init__*
+        */migrations/*

@@ -6,5 +6,5 @@ app_name = 'user'
 
 urlpatterns = [
     path('create/', views.CreateUserView.as_view(), name='create'),
-    path('access/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('access/', views.MyTokenObtainPairView.as_view(), name='access'),
 ]
