@@ -125,7 +125,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=10),
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=300),
 }
 
 REST_FRAMEWORK = {
