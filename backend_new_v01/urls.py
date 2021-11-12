@@ -13,12 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView
 )
+
+from backend_new_v01 import settings
 from core.views import UserAPIView
 from user.views import MyTokenObtainPairView
 
@@ -30,4 +33,4 @@ urlpatterns = [
     path('api/user/', UserAPIView.as_view(), name='user'),
     path('api/user/', include('user.urls')),
     path('api/recipe/', include('recipe.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
