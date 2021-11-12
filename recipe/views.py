@@ -2,7 +2,7 @@ from rest_framework import viewsets, mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from core.models import Tag, Ingredient
+from core.models import Tag, Ingredient, Recipe
 from recipe import serializers
 
 
@@ -15,16 +15,23 @@ class BaseRecipeAttrViewSet(viewsets.GenericViewSet,
 
     def get_queryset(self):
         """Return objects for current user"""
-        assigned_only = bool(
-            int(self.request.query_params.get('assigned_only', 0))
-        )
-        queryset = self.queryset
-        if assigned_only:
-            queryset = queryset.filter(recipe__isnull=False)
+        # assigned_only = bool(
+        #     int(self.request.query_params.get('assigned_only', 0))
+        # )
+        # queryset = self.queryset
+        # if assigned_only:
+        #     queryset = queryset.filter(recipe__isnull=False)
+        #
+        # return queryset.filter(
+        #     user=self.request.user
+        # ).order_by('-name').distinct()
 
-        return queryset.filter(
+        # return self.queryset.filter(
+        #     user=self.request.user
+        # ).order_by('-name').distinct()
+        return self.queryset.filter(
             user=self.request.user
-        ).order_by('-name').distinct()
+        ).order_by('-name')
 
     def perform_create(self, serializer):
         """Create a new ingredient"""
@@ -42,3 +49,16 @@ class IngredientViewSet(BaseRecipeAttrViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = serializers.IngredientSerializer
 
+
+class RecipeViewSet(viewsets.ModelViewSet):
+    """Manage recipes in the database"""
+    authentication_classes = [JWTAuthentication]
+    permission_classes = (IsAuthenticated,)
+
+    serializer_class = serializers.RecipeSerializer
+    queryset = Recipe.objects.all()
+
+    def get_queryset(self):
+        return self.queryset.filter(
+            user=self.request.user
+        ).order_by('-id')
