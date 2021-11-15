@@ -217,7 +217,7 @@ class PrivateRecipeApiTests(TestCase):
             RECIPES_URL,
             {'tags': '{},{}'.format(tag1.id, tag2.id)}
         )
-        
+
         serializer1 = RecipeSerializer(recipe1)
         serializer2 = RecipeSerializer(recipe2)
         serializer3 = RecipeSerializer(recipe3)
@@ -250,12 +250,14 @@ class PrivateRecipeApiTests(TestCase):
 class RecipeImageUploadTests(TestCase):
 
     def setUp(self):
-        self.client = APIClient()
         self.user = get_user_model().objects.create_user(
             'user@cheno.net',
             'testpass'
         )
-        self.client.force_authenticate(self.user)
+        token = RefreshToken.for_user(self.user)
+        self.client = APIClient()
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + str(token.access_token))
+
         self.recipe = sample_recipe(user=self.user)
 
     def tearDown(self):
