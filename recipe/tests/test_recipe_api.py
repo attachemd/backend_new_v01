@@ -49,8 +49,6 @@ class PublicRecipeApiTests(TestCase):
     def test_required_auth(self):
         """Test the authenticaiton is required"""
         res = self.client.get(RECIPES_URL)
-        print("settings.AUTH_USER_MODEL: ")
-        print(settings.STATIC_ROOT)
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
