@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
-from selenium.webdriver.common.devtools.v85.network import Response
+
 
 from user.serializers import UserSerializer, MyTokenObtainPairSerializer
 
